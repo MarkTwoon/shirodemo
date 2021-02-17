@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class ErrController implements ErrorController {
+    private static int statusCode;
    /* @RequestMapping("/")
     public String showIndex(HttpServletRequest request) {
         *//*request.setAttribute("name","张顺飞");
@@ -22,16 +23,16 @@ public class ErrController implements ErrorController {
 
 
 
-
      @RequestMapping("/error")
     public String showError(HttpServletRequest request,HttpServletResponse response) {
-System.out.println(response.getStatus()+">>>>>>>>>>");
+//System.out.println(response.getStatus()+">>>>>>>>>>");
+         statusCode=response.getStatus();
         return getErrorPath();
     }
 
     @Override
     public String getErrorPath() {
 
-        throw new MyException(StatusCode.RETURN_ERROR,"抱歉，请求异常！");
+        throw new MyException(StatusCode.RETURN_ERROR,statusCode,"抱歉，请求异常！");
     }
 }

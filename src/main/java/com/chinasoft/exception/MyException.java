@@ -11,6 +11,10 @@ public class MyException extends RuntimeException{
         super(userResponseEnum.getDescription(message));
         this.code=userResponseEnum.getCode();
     }
+    public MyException(StatusCode userResponseEnum,int code,String message){
+        super(userResponseEnum.getDescription(message));
+        this.code=code;
+    }
     public Integer getCode(){
         return  code;
     }
