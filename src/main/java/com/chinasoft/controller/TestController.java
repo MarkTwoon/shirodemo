@@ -1,13 +1,20 @@
 package com.chinasoft.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.chinasoft.entity.UserInfo;
 import com.chinasoft.exception.MyException;
 import com.chinasoft.exception.StatusCode;
 import com.chinasoft.service.AdminService;
+import com.chinasoft.util.FinalMsg;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -15,10 +22,13 @@ public class TestController {
     @Autowired
     private AdminService adminService;
     @RequestMapping("test")
-  public Object test(@RequestParam Map<String,Object> map){
+  public Object test(@RequestParam Map<String,Object> map, HttpSession session){
       //  int ab=10/0;
        // throw new MyException(StatusCode.DATA_NULL,"查询数据为空空？？");
-        return adminService.selectUserById(map);
+        //return adminService.selectUserById(map);
+     map.put("SessionId",session.getId());
+     map.put("登录用户", JSONObject.toJSON(session.getAttribute(FinalMsg.SESSION_USERDATA)));
+    return map;
     }
 
     /*@RequestMapping("login")

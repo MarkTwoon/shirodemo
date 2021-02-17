@@ -1,5 +1,6 @@
 package com.chinasoft.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chinasoft.entity.UserInfo;
 import com.chinasoft.util.FinalMsg;
 import org.apache.shiro.SecurityUtils;
@@ -24,6 +25,8 @@ public class IndexController {
         //获取当前登录人
         UserInfo userInfo = (UserInfo) SecurityUtils.getSubject().getPrincipal();
         session.setAttribute(FinalMsg.SESSION_USERDATA,userInfo);
+        System.out.println("SessionId:"+session.getId()+"存储session>>>>>>>>>>>");
+        System.out.println(JSONObject.toJSON(userInfo)+"存储session>>>>>>>>>>>");
         request.setAttribute("userInfo",userInfo);
         return "index";
     }

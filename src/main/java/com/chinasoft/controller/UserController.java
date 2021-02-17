@@ -28,7 +28,6 @@ public class UserController {
     public String searchUser(HttpSession session)
     {
         request.setAttribute("message","查询用户");
-        System.out.println(JSONObject.toJSON(session.getAttribute(FinalMsg.SESSION_USERDATA)));
         return "user";
     }
 
