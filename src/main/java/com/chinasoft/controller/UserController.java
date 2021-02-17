@@ -1,10 +1,14 @@
 package com.chinasoft.controller;
+import com.alibaba.fastjson.JSONObject;
+import com.chinasoft.util.FinalMsg;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * 用户信息控制器
  * 所有方法仅测试授权功能
@@ -21,9 +25,10 @@ public class UserController {
      */
     @RequiresPermissions("user:list")
     @RequestMapping("/searchUser")
-    public String searchUser()
+    public String searchUser(HttpSession session)
     {
         request.setAttribute("message","查询用户");
+        System.out.println(JSONObject.toJSON(session.getAttribute(FinalMsg.SESSION_USERDATA)));
         return "user";
     }
 

@@ -84,11 +84,11 @@
             <artifactId>spring-boot-starter-redis</artifactId>
             <version>1.4.1.RELEASE</version>
         </dependency>
-        <!-- Redis客户端 -->
-        <dependency>
+        <!-- Redis客户端  jedis非线程安全  已弃用-->
+        <!--<dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <dependency>
@@ -202,6 +202,11 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <!--Lettuce是 一 个 基 于 Netty的 NIO方 式 处 理 Redis的 技 术 -->
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
         </dependency>
         <dependency>
             <groupId>net.sf.json-lib</groupId>
