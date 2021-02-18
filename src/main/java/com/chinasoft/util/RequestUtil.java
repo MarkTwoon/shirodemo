@@ -1,19 +1,26 @@
 package com.chinasoft.util;
 
+import com.chinasoft.exception.MyException;
+import com.chinasoft.exception.StatusCode;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RequestUtil {
+	public static List<Map<String,Object>> checkNullData(List<Map<String,Object>> list){
+		if(list.size()<=0){
+			throw new MyException(StatusCode.DATA_NULL,"查询数据为空！！");
+		}
+		return  list;
+	}
+
+
 	public static Map<String, Object> getQueryMap(HttpServletRequest request) {
 		Map<String, Object> bm = new HashMap<String, Object>();
 		Map<String, String[]> tmp = request.getParameterMap();

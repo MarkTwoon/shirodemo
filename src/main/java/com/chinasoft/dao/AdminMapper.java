@@ -13,6 +13,6 @@ import java.util.Map;
 @Mapper
 public interface AdminMapper {
     public List<Map<String,Object>> selectUserById(Map<String,Object> map);
-
+    public List<Map<String,Object>> selectRolePage(Map<String,Object> map);
 
 }

@@ -36,6 +36,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/image/**","anon");
         filterChainDefinitionMap.put("/toLoginView", "anon");
         filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/test/**", "anon");
         //配置退出过滤器,退出代码Shiro已经替我们实现
         //filterChainDefinitionMap.put("/logout", "logout");
         //过滤链定义，从上向下顺序执行，/**放在最下边;

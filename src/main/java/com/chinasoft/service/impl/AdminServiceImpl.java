@@ -1,8 +1,10 @@
 package com.chinasoft.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chinasoft.dao.AdminMapper;
 import com.chinasoft.service.AdminService;
 import com.chinasoft.util.RedisUtil;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,27 @@ public class AdminServiceImpl implements AdminService {
             System.out.println("查询数据库获得数据"+list);
             System.out.println("------数据结果集存入缓存中------------------");
             //写入缓存  最好在缓存中添加生效时间 默认是秒单位
+            redisUtil.set(key,list, RedisUtil.RandomNumber(14,30));
+            return  list;
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> selectRolePage(Map<String, Object> map) {
+        System.out.println(JSONObject.toJSON(map)+">>>>>>>>");
+        String key="permissionInfoTable_"+JSONObject.toJSON(map);
+        boolean hasKey=redisUtil.hasKey(key);
+        if(hasKey){
+            List<Map<String,Object>> list= (List<Map<String, Object>>) redisUtil.get(key);
+            System.out.println("从redis缓存中获取数据："+list);
+            System.out.println("------------");
+            return  list;
+        }else{
+            PageHelper.startPage(Integer.parseInt(map.get("page")+"")
+                    ,Integer.parseInt(map.get("limit")+"")," permission_id desc");
+            List<Map<String,Object>> list=adminMapper.selectRolePage(map);
+            System.out.println("查询数据库获得数据："+list);
+            System.out.println("------数据结果集存入缓存中 若干秒生效时间------------------");
             redisUtil.set(key,list, RedisUtil.RandomNumber(14,30));
             return  list;
         }

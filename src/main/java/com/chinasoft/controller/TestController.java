@@ -7,6 +7,8 @@ import com.chinasoft.exception.MyException;
 import com.chinasoft.exception.StatusCode;
 import com.chinasoft.service.AdminService;
 import com.chinasoft.util.FinalMsg;
+import com.chinasoft.util.RequestUtil;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("test")
 public class TestController {
     @Autowired
     private AdminService adminService;
@@ -29,6 +33,15 @@ public class TestController {
      map.put("SessionId",session.getId());
      map.put("登录用户", JSONObject.toJSON(session.getAttribute(FinalMsg.SESSION_USERDATA)));
     return map;
+    }
+
+    @RequestMapping("getPage")
+    public Object getPage(@RequestParam Map<String,Object> map){
+        List<Map<String,Object>> list= RequestUtil.checkNullData(adminService.selectRolePage(map));
+        PageInfo<Map<String,Object>> pageInfo=new PageInfo<Map<String,Object>>(list);
+        map.put("total",pageInfo.getTotal());
+        map.put("list",list);
+        return map;
     }
 
     /*@RequestMapping("login")

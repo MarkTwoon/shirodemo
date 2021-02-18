@@ -99,7 +99,7 @@ pagehelper:
   helperDialect: mysql
   reasonable: true
   supportMethodsArguments: true
-  returnPageInfo: true
+  returnPageInfo: check
   params: count=countSql
 
 logging:          #扫描dao层，保证SQL指令在控制台 输出

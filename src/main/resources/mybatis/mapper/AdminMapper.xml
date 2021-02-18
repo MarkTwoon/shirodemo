@@ -9,7 +9,18 @@
         useCache="true"  flushCache="false">
 select  *  from  user_info where  user_id=#{userId}
 </select>
-
+<select id="selectRolePage" resultType="map" parameterType="map"
+        useCache="true" flushCache="false">
+    select * from permission_info
+ <where>
+     <if test="permissionName !=null and permissionName !=''">
+         permission_name like  CONCAT('%',#{permissionName},'%')
+     </if>
+    <if test="permissionId !=null and permissionId !=''">
+   and permission_id=#{permissionId}
+    </if>
+ </where>
+</select>
 
 
 </mapper>
